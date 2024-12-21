@@ -5,19 +5,15 @@ export const isValidDate = (date: string | Date): boolean => {
     return isValid(date)
   }
 
-  if (typeof date === 'string') {
-    const isoDate = parseISO(date)
-    if (isValid(isoDate)) {
-      return true
-    }
-
-    const formats = ['yyyy-MM-dd', "yyyy-MM-dd'T'HH:mm:ss", 'dd/MM/yyyy', "dd/MM/yyyy'T'HH:mm:ss", 'dd/MM/yyyy HH:mm:ss']
-
-    return formats.some((format) => {
-      const parsedDate = parse(date, format, new Date())
-      return isValid(parsedDate)
-    })
+  const isoDate = parseISO(date)
+  if (isValid(isoDate)) {
+    return true
   }
 
-  return false
+  const formats = ['yyyy-MM-dd', "yyyy-MM-dd'T'HH:mm:ss", 'dd/MM/yyyy', "dd/MM/yyyy'T'HH:mm:ss", 'dd/MM/yyyy HH:mm:ss']
+
+  return formats.some((format) => {
+    const parsedDate = parse(date, format, new Date())
+    return isValid(parsedDate)
+  })
 }
